@@ -11,7 +11,7 @@ class OrderLine(
         @Id
         @GeneratedValue(generator = "system-uuid")
         @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String,
+        val id: String? = null,
         @Column(name = "order_id")
         val orderId: String,
         val productCode: String,

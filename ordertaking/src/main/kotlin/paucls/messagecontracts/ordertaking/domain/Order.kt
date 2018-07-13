@@ -11,7 +11,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "order_table")
-class Order(
+data class Order(
         @Id
         @GeneratedValue(generator = "system-uuid")
         @GenericGenerator(name = "system-uuid", strategy = "uuid2")
