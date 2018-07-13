@@ -1,0 +1,3 @@
+package paucls.messagecontracts.shipping.application
+
+class ShipOrderCommand
