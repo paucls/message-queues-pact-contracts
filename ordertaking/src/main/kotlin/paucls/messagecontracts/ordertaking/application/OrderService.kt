@@ -3,7 +3,6 @@ package paucls.messagecontracts.ordertaking.application
 import org.springframework.stereotype.Service
 import paucls.messagecontracts.ordertaking.domain.Order
 import paucls.messagecontracts.ordertaking.domain.OrderLine
-import paucls.messagecontracts.ordertaking.domain.UnvalidatedOrderLine
 import java.util.UUID
 
 @Service
@@ -24,7 +23,7 @@ class OrderService(private val repository: OrderRepository) {
         return repository.save(order)
     }
 
-    fun toOrderLine(orderId: String, line: UnvalidatedOrderLine): OrderLine {
+    fun toOrderLine(orderId: String, line: OrderLineDto): OrderLine {
         return OrderLine(
                 orderId = orderId,
                 productCode = line.productCode,

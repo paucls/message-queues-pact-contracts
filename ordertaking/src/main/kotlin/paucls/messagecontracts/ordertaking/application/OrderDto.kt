@@ -1,7 +1,7 @@
-package paucls.messagecontracts.ordertaking.api
+package paucls.messagecontracts.ordertaking.application
 
 class OrderDto(
-        val orderId: String,
+        val orderId: String?,
         val customerId: String,
         val shippingAddress: String,
         val billingAddress: String,

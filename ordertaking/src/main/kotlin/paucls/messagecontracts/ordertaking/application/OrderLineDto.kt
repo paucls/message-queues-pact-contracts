@@ -1,4 +1,4 @@
-package paucls.messagecontracts.ordertaking.api
+package paucls.messagecontracts.ordertaking.application
 
 class OrderLineDto(
         val id: String?,
