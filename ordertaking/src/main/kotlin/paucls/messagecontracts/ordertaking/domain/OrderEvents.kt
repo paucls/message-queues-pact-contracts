@@ -2,6 +2,8 @@ package paucls.messagecontracts.ordertaking.domain
 
 import java.util.Date
 
-class OrderPlaced(val orderId: String) {
+sealed class OrderEvent {
     val timestamp = Date()
 }
+
+data class OrderPlaced(val orderId: String) : OrderEvent()

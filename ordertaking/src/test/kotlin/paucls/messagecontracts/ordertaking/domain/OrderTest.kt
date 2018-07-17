@@ -1,21 +1,23 @@
 package paucls.messagecontracts.ordertaking.domain
 
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class OrderTest {
 
     @Test
     fun `can place order`() {
-        Order(
-                orderId = "order-id",
+        val orderId = "order-id"
+        val order = Order(
+                orderId = orderId,
                 customerId = "customer-id",
                 billingAddress = "address 1",
                 shippingAddress = "address 2",
                 orderLines = listOf(
                         OrderLine(
                                 id = "order-line-id",
-                                orderId = "order-id",
+                                orderId = orderId,
                                 productCode = "a1",
                                 price = 1.5,
                                 orderQuantity = 4
@@ -23,6 +25,8 @@ class OrderTest {
                 ),
                 total = 6.0
         )
+
+        assertThat(order.domainEvents()).containsExactly(OrderPlaced(orderId))
     }
 
     @Test

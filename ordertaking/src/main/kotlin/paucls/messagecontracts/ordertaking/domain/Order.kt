@@ -19,8 +19,10 @@ data class Order(
         @JoinColumn(name = "order_id")
         val orderLines: List<OrderLine>,
         val total: Double
-) {
+) : AggregateRoot<OrderEvent>() {
     init {
         if (orderLines.isEmpty()) throw CannotPlaceOrderWithoutLines()
+
+        registerEvent(OrderPlaced(orderId))
     }
 }
