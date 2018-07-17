@@ -1,4 +1,4 @@
 // Place Order
-curl -d '{"customerId":"customer-id", "shippingAddress": "address 1", "billingAddress": "address 2", "orderLines": [{"productCode": "p1", "orderQuantity": 2, "price": 1.5}]}' -H "Content-Type: application/json" -X POST http://localhost:8080/orders
+curl -d '{"customerId":"customer-id", "shippingAddress": "address 1", "billingAddress": "address 2", "total": 3.0, "orderLines": [{"productCode": "p1", "orderQuantity": 2, "price": 1.5}]}' -H "Content-Type: application/json" -X POST http://localhost:8080/orders
 
 curl -d '{"customerId":"customer-id", "shippingAddress": "address 1", "billingAddress": "address 2", "orderLines": []}' -H "Content-Type: application/json" -X POST http://localhost:8080/orders

@@ -18,5 +18,5 @@ data class Order(
         @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
         @JoinColumn(name = "order_id")
         val orderLines: List<OrderLine> = emptyList(),
-        val amountToBill: Number?
+        val total: Double
 )

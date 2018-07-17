@@ -6,5 +6,5 @@ class OrderDto(
         val shippingAddress: String,
         val billingAddress: String,
         val orderLines: List<OrderLineDto> = emptyList(),
-        val amountToBill: Number?
+        val total: Double
 )

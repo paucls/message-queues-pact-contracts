@@ -17,7 +17,7 @@ class OrderService(private val repository: OrderRepository) {
                 billingAddress = unvalidatedOrder.billingAddress,
                 shippingAddress = unvalidatedOrder.shippingAddress,
                 orderLines = unvalidatedOrder.orderLines.map { assembler.toOrderLine(orderId, it) },
-                amountToBill = 0 // TODO
+                total = unvalidatedOrder.total
         )
 
         order = repository.save(order)

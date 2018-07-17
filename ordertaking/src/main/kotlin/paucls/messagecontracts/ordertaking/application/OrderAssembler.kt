@@ -20,7 +20,7 @@ class OrderAssembler {
                             price = it.price
                     )
                 },
-                amountToBill = order.amountToBill
+                total = order.total
         )
     }
 
