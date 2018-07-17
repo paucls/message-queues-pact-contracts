@@ -24,7 +24,18 @@ class OrderAssembler {
         )
     }
 
-    fun toOrderLine(orderId: String, line: OrderLineDto): OrderLine {
+    fun toOrder(orderId: String, order: OrderDto): Order {
+        return Order(
+                orderId = orderId,
+                customerId = order.customerId,
+                billingAddress = order.billingAddress,
+                shippingAddress = order.shippingAddress,
+                orderLines = order.orderLines.map { toOrderLine(orderId, it) },
+                total = order.total
+        )
+    }
+
+    private fun toOrderLine(orderId: String, line: OrderLineDto): OrderLine {
         return OrderLine(
                 orderId = orderId,
                 productCode = line.productCode,
