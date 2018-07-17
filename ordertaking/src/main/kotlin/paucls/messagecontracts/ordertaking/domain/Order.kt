@@ -17,6 +17,10 @@ data class Order(
         val billingAddress: String,
         @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
         @JoinColumn(name = "order_id")
-        val orderLines: List<OrderLine> = emptyList(),
+        val orderLines: List<OrderLine>,
         val total: Double
-)
+) {
+    init {
+        if (orderLines.isEmpty()) throw CannotPlaceOrderWithoutLines()
+    }
+}
