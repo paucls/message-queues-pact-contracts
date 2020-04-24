@@ -1,0 +1,33 @@
+{
+  "consumer": {
+    "name": "shipping"
+  },
+  "provider": {
+    "name": "ordertaking"
+  },
+  "messages": [
+    {
+      "description": "order placed message",
+      "metaData": {
+        "contentType": "application/json"
+      },
+      "contents": {
+        "orderId": "order-id",
+        "customerId": "customer-id"
+      },
+      "providerStates": [
+        {
+          "name": "an order with id order-id has been placed"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.10"
+    }
+  }
+}
