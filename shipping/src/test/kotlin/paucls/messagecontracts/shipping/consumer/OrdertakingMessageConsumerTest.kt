@@ -11,6 +11,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
+import paucls.messagecontracts.shipping.adapter.messaging.OrderPlacedDto
 
 class OrdertakingMessageConsumerTest {
 
@@ -36,18 +37,9 @@ class OrdertakingMessageConsumerTest {
 
     @Test
     @PactVerification(value = ["tasks-provider"], fragment = "orderPlacedPact")
-    @Throws(Exception::class)
     fun taskCompleted() {
-        val currentMessage = mockProvider.message
-
-        val orderPlaced: OrderPlaced = jacksonObjectMapper().readValue(currentMessage)
-        assertThat(orderPlaced.orderId).isEqualTo("order-id")
-        assertThat(orderPlaced.customerId).isEqualTo("customer-id")
+        val orderPlacedDto: OrderPlacedDto = jacksonObjectMapper().readValue(mockProvider.message)
+        assertThat(orderPlacedDto.orderId).isEqualTo("order-id")
+        assertThat(orderPlacedDto.customerId).isEqualTo("customer-id")
     }
-
 }
-
-class OrderPlaced(
-        val orderId: String,
-        val customerId: String
-)
