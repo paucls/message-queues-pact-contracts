@@ -15,7 +15,7 @@ class OrderEventsPropagationHandler(
 
     @EventListener
     fun handle(event: OrderPlaced) {
-        eventPublisher.publish("ordertaking.events", event)
+        eventPublisher.publish("ordertaking.order.placed", event)
     }
 
 }
