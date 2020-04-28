@@ -16,7 +16,7 @@ class OrderAssembler {
                             id = it.id,
                             orderId = it.orderId,
                             productCode = it.productCode,
-                            orderQuantity = it.orderQuantity,
+                            quantity = it.orderQuantity,
                             price = it.price
                     )
                 },
@@ -39,7 +39,7 @@ class OrderAssembler {
         return OrderLine(
                 orderId = orderId,
                 productCode = line.productCode,
-                orderQuantity = line.orderQuantity,
+                orderQuantity = line.quantity,
                 price = line.price
         )
     }

@@ -12,14 +12,40 @@
         "contentType": "application/json"
       },
       "contents": {
+        "orderLines": [
+          {
+            "productCode": "product-code",
+            "quantity": 10
+          }
+        ],
         "orderId": "order-id",
-        "customerId": "customer-id"
+        "shippingAddress": "a shipping address"
       },
       "providerStates": [
         {
           "name": "an order with id order-id has been placed"
         }
-      ]
+      ],
+      "matchingRules": {
+        "body": {
+          "$.orderLines[0].productCode": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ],
+            "combine": "AND"
+          },
+          "$.orderLines[0].quantity": {
+            "matchers": [
+              {
+                "match": "number"
+              }
+            ],
+            "combine": "AND"
+          }
+        }
+      }
     }
   ],
   "metadata": {

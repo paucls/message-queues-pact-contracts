@@ -4,6 +4,6 @@ class OrderLineDto(
         val id: String?,
         val orderId: String?,
         val productCode: String,
-        val orderQuantity: Number,
+        val quantity: Number,
         val price: Number
 )

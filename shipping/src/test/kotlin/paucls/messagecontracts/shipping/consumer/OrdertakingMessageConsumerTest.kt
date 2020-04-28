@@ -11,6 +11,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
+import paucls.messagecontracts.shipping.adapter.messaging.OrderLineDto
 import paucls.messagecontracts.shipping.adapter.messaging.OrderPlacedDto
 
 class OrdertakingMessageConsumerTest {
@@ -22,8 +23,13 @@ class OrdertakingMessageConsumerTest {
     @Pact(provider = "ordertaking", consumer = "shipping")
     fun orderPlacedPact(builder: MessagePactBuilder): MessagePact {
         val body = PactDslJsonBody()
-        body.stringValue("orderId", "order-id")
-        body.stringValue("customerId", "customer-id")
+                .stringValue("orderId", "order-id")
+                .stringValue("shippingAddress", "a shipping address")
+                .array("orderLines")
+                .`object`()
+                .stringType("productCode", "product-code")
+                .numberType("quantity", 10)
+                .closeObject()
 
         val metadata = HashMap<String, String>()
         metadata["contentType"] = "application/json"
@@ -40,6 +46,11 @@ class OrdertakingMessageConsumerTest {
     fun taskCompleted() {
         val orderPlacedDto: OrderPlacedDto = jacksonObjectMapper().readValue(mockProvider.message)
         assertThat(orderPlacedDto.orderId).isEqualTo("order-id")
-        assertThat(orderPlacedDto.customerId).isEqualTo("customer-id")
+        assertThat(orderPlacedDto.shippingAddress).isEqualTo("a shipping address")
+        assertThat(orderPlacedDto.orderLines).hasSize(1)
+        assertThat(orderPlacedDto.orderLines).containsExactly(OrderLineDto(
+                productCode = "product-code",
+                quantity = 10
+        ))
     }
 }
