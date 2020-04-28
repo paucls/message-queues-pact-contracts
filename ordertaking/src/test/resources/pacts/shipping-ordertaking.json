@@ -18,16 +18,33 @@
             "quantity": 10
           }
         ],
-        "orderId": "order-id",
+        "orderId": "00000000-0000-0000-0000-000000000000",
         "shippingAddress": "a shipping address"
       },
       "providerStates": [
         {
-          "name": "an order with id order-id has been placed"
+          "name": "an order has been placed"
         }
       ],
       "matchingRules": {
         "body": {
+          "$.orderId": {
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+              }
+            ],
+            "combine": "AND"
+          },
+          "$.shippingAddress": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ],
+            "combine": "AND"
+          },
           "$.orderLines[0].productCode": {
             "matchers": [
               {

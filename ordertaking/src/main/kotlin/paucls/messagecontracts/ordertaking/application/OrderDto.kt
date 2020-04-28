@@ -1,7 +1,9 @@
 package paucls.messagecontracts.ordertaking.application
 
+import java.util.UUID
+
 class OrderDto(
-        val orderId: String?,
+        val orderId: UUID?,
         val customerId: String,
         val shippingAddress: String,
         val billingAddress: String,

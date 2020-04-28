@@ -2,6 +2,7 @@ package paucls.messagecontracts.ordertaking.application
 
 import paucls.messagecontracts.ordertaking.domain.Order
 import paucls.messagecontracts.ordertaking.domain.OrderLine
+import java.util.UUID
 
 class OrderAssembler {
 
@@ -16,7 +17,7 @@ class OrderAssembler {
                             id = it.id,
                             orderId = it.orderId,
                             productCode = it.productCode,
-                            quantity = it.orderQuantity,
+                            quantity = it.quantity,
                             price = it.price
                     )
                 },
@@ -24,7 +25,7 @@ class OrderAssembler {
         )
     }
 
-    fun toOrder(orderId: String, order: OrderDto): Order {
+    fun toOrder(orderId: UUID, order: OrderDto): Order {
         return Order(
                 orderId = orderId,
                 customerId = order.customerId,
@@ -35,11 +36,11 @@ class OrderAssembler {
         )
     }
 
-    private fun toOrderLine(orderId: String, line: OrderLineDto): OrderLine {
+    private fun toOrderLine(orderId: UUID, line: OrderLineDto): OrderLine {
         return OrderLine(
                 orderId = orderId,
                 productCode = line.productCode,
-                orderQuantity = line.quantity,
+                quantity = line.quantity,
                 price = line.price
         )
     }

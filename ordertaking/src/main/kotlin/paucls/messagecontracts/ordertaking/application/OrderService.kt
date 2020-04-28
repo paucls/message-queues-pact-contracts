@@ -9,7 +9,7 @@ class OrderService(private val repository: OrderRepository) {
     val assembler = OrderAssembler()
 
     fun placeOrder(unvalidatedOrder: OrderDto): OrderDto {
-        val orderId = UUID.randomUUID().toString()
+        val orderId = UUID.randomUUID()
         var order = assembler.toOrder(orderId, unvalidatedOrder)
 
         order = repository.save(order)

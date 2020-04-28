@@ -1,5 +1,6 @@
 package paucls.messagecontracts.ordertaking.domain
 
+import java.util.UUID
 import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -11,7 +12,7 @@ import javax.persistence.Table
 @Table(name = "order_table")
 data class Order(
         @Id
-        val orderId: String,
+        val orderId: UUID,
         val customerId: String,
         val shippingAddress: String,
         val billingAddress: String,

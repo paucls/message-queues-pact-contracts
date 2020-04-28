@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import paucls.messagecontracts.shipping.adapter.messaging.OrderLineDto
 import paucls.messagecontracts.shipping.adapter.messaging.OrderPlacedDto
+import java.util.UUID
 
 class OrdertakingMessageConsumerTest {
 
@@ -23,8 +24,8 @@ class OrdertakingMessageConsumerTest {
     @Pact(provider = "ordertaking", consumer = "shipping")
     fun orderPlacedPact(builder: MessagePactBuilder): MessagePact {
         val body = PactDslJsonBody()
-                .stringValue("orderId", "order-id")
-                .stringValue("shippingAddress", "a shipping address")
+                .uuid("orderId", UUID.fromString("00000000-0000-0000-0000-000000000000"))
+                .stringType("shippingAddress", "a shipping address")
                 .array("orderLines")
                 .`object`()
                 .stringType("productCode", "product-code")
@@ -34,7 +35,7 @@ class OrdertakingMessageConsumerTest {
         val metadata = HashMap<String, String>()
         metadata["contentType"] = "application/json"
 
-        return builder.given("an order with id order-id has been placed")
+        return builder.given("an order has been placed")
                 .expectsToReceive("order placed message")
                 .withMetadata(metadata)
                 .withContent(body)
@@ -43,14 +44,12 @@ class OrdertakingMessageConsumerTest {
 
     @Test
     @PactVerification(value = ["tasks-provider"], fragment = "orderPlacedPact")
-    fun taskCompleted() {
+    fun `should handle order placed message`() {
         val orderPlacedDto: OrderPlacedDto = jacksonObjectMapper().readValue(mockProvider.message)
-        assertThat(orderPlacedDto.orderId).isEqualTo("order-id")
+
+        assertThat(orderPlacedDto.orderId).isEqualTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))
         assertThat(orderPlacedDto.shippingAddress).isEqualTo("a shipping address")
-        assertThat(orderPlacedDto.orderLines).hasSize(1)
-        assertThat(orderPlacedDto.orderLines).containsExactly(OrderLineDto(
-                productCode = "product-code",
-                quantity = 10
-        ))
+        assertThat(orderPlacedDto.orderLines).containsExactly(
+                OrderLineDto(productCode = "product-code", quantity = 10))
     }
 }
