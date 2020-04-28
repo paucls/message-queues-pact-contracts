@@ -23,6 +23,6 @@ data class Order(
     init {
         if (orderLines.isEmpty()) throw CannotPlaceOrderWithoutLines()
 
-        registerEvent(OrderPlaced(orderId))
+        registerEvent(OrderPlaced(order = this))
     }
 }
